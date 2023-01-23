@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.submission.core.domain.model.Vanguard
-import com.example.submission.core.ui.VanguardAdapter
 import com.example.submission.databinding.FragmentFavoriteBinding
 import com.example.submission.presentation.detail.DetailVanguardActivity
+import com.example.vanguard.core.domain.model.Vanguard
+import com.example.vanguard.core.ui.VanguardAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

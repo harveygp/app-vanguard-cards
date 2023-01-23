@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-parcelize'
@@ -10,17 +10,15 @@ plugins {
 apply from: '../shared_dependencies.gradle'
 
 android {
-    namespace 'com.example.submission'
-    compileSdk 33
+    namespace 'com.example.vanguard.core'
+    compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.submission"
         minSdk 24
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        targetSdk 32
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -37,21 +35,21 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding true
+        viewBinding = true
     }
 }
 
 dependencies {
 
-    implementation project(":core")
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20"
-}
 
-kapt {
-    correctErrorTypes true
-}
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
 
-hilt {
-    enableAggregatingTask = true
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2"
+    implementation "androidx.room:room-ktx:2.4.0"
+    api 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
 }

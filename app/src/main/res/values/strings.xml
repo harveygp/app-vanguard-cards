@@ -12,10 +12,6 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="no_data">oops... there\'s no data right now</string>
     <string name="something_wrong">oops.. something\'s when wrong</string>
-    <string name="text_primary">text_primary</string>
-    <string name="text_subtitle">text_subtitle</string>
-    <string name="image_description">image</string>
-    <string name="text_grade">grade</string>
-    <string name="text_effect">effect</string>
+
     <string name="menu_favorite">favorite</string>
 </resources>
