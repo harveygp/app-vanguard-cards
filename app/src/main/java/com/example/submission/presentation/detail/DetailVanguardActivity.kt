@@ -7,8 +7,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.submission.R
-import com.example.submission.core.domain.model.Vanguard
 import com.example.submission.databinding.ActivityDetailVanguardBinding
+import com.example.vanguardappp.core.domain.model.Vanguard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

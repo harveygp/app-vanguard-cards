@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_primary">text_primary</string>
+    <string name="text_subtitle">text_subtitle</string>
+    <string name="image_description">image</string>
+    <string name="text_grade">grade</string>
+    <string name="text_effect">effect</string>
+</resources>
