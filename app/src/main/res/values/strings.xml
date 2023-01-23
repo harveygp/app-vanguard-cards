@@ -14,4 +14,5 @@
     <string name="something_wrong">oops.. something\'s when wrong</string>
 
     <string name="menu_favorite">favorite</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

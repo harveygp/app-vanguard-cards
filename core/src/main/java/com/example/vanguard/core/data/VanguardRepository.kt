@@ -25,8 +25,8 @@ class VanguardRepository @Inject constructor(
             }
 
             override fun shouldFetch(data: List<Vanguard>?): Boolean =
-//                data == null || data.isEmpty()
-                true // change to true , if always want to get data from network
+                data == null || data.isEmpty()
+//                true // change to true , if always want to get data from network
 
             override suspend fun createCall(): Flow<ApiResponse<List<VanguardResponse>>> =
                 withContext(Dispatchers.IO){
@@ -35,9 +35,8 @@ class VanguardRepository @Inject constructor(
 
             override suspend fun saveCallResult(data: List<VanguardResponse>) {
                 val vanguardList = DataMapper.mapResponsesToEntities(data)
-                withContext(Dispatchers.IO){
-                    localDataSource.insertVanguard(vanguardList)
-                }
+                localDataSource.insertVanguard(vanguardList)
+
             }
         }.asFlow()
 

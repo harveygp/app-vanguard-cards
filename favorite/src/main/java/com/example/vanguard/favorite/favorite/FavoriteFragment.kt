@@ -1,4 +1,4 @@
-package com.example.submission.presentation.favorite
+package com.example.vanguard.favorite.favorite
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,10 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.submission.databinding.FragmentFavoriteBinding
 import com.example.submission.presentation.detail.DetailVanguardActivity
 import com.example.vanguard.core.domain.model.Vanguard
 import com.example.vanguard.core.ui.VanguardAdapter
+import com.example.vanguard.favorite.FavoriteViewModel
+import com.example.vanguard.favorite.databinding.FragmentFavoriteBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,7 +59,6 @@ class FavoriteFragment : Fragment() {
             }
         })
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

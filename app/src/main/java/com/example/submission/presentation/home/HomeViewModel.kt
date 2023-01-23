@@ -1,9 +1,6 @@
 package com.example.submission.presentation.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.vanguard.core.data.Resource
 import com.example.vanguard.core.domain.model.Vanguard
 import com.example.vanguard.core.domain.usecase.VanguardUseCase
@@ -26,6 +23,8 @@ class HomeViewModel @Inject constructor(private val vanguardeUseCase : VanguardU
     init{
         vanguards()
     }
+
+    val favoriteVanguards = vanguardeUseCase.getFavoriteVanguard().asLiveData()
 
     fun vanguards() = viewModelScope.launch(Dispatchers.IO) {
         vanguardeUseCase.getAllVanguards().onEach { value ->
