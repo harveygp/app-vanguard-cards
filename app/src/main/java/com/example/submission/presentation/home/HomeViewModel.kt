@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(vanguardeUseCase : VanguardUseCase) : ViewModel() {
+class HomeViewModel @Inject constructor(private val vanguardeUseCase : VanguardUseCase) : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -23,7 +23,11 @@ class HomeViewModel @Inject constructor(vanguardeUseCase : VanguardUseCase) : Vi
     private val _data = MutableLiveData<List<Vanguard>?>()
     val data: LiveData<List<Vanguard>?> = _data
 
-    val vanguards = viewModelScope.launch(Dispatchers.IO) {
+    init{
+        vanguards()
+    }
+
+    fun vanguards() = viewModelScope.launch(Dispatchers.IO) {
         vanguardeUseCase.getAllVanguards().onEach { value ->
             when(value){
                 is Resource.Loading -> _isLoading.value = true

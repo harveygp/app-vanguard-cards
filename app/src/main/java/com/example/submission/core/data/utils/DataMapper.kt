@@ -1,4 +1,4 @@
-package com.example.submission.utils
+package com.example.submission.core.data.utils
 
 import com.example.submission.core.data.source.local.entity.VanguardEntity
 import com.example.submission.core.data.source.remote.response.VanguardResponse

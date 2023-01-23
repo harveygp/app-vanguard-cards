@@ -8,5 +8,4 @@ import com.example.submission.core.data.source.local.entity.VanguardEntity
 abstract class VanguardDatabase : RoomDatabase() {
 
     abstract fun vanguardDao() : VanguardDao
-
 }

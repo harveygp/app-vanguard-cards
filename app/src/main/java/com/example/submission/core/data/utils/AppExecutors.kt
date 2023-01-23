@@ -1,4 +1,4 @@
-package com.example.submission.utils
+package com.example.submission.core.data.utils
 
 import android.os.Handler
 import android.os.Looper

@@ -1,7 +1,9 @@
-package com.example.submission.core.di
+package com.example.submission.core.data.source.local.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.submission.core.data.source.local.ILocalDataSource
+import com.example.submission.core.data.source.local.LocalDataSource
 import com.example.submission.core.data.source.local.room.VanguardDao
 import com.example.submission.core.data.source.local.room.VanguardDatabase
 import dagger.Module
@@ -13,7 +15,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DatabaseModule {
+object DatabaseModule {
 
     @Singleton
     @Provides
@@ -23,5 +25,12 @@ class DatabaseModule {
     ).fallbackToDestructiveMigration().build()
 
     @Provides
-    fun provideTourismDao(database: VanguardDatabase): VanguardDao = database.vanguardDao()
+    @Singleton
+    fun provideVanguardDao(database: VanguardDatabase): VanguardDao = database.vanguardDao()
+
+    @Provides
+    @Singleton
+    fun provideVanguardDataSource(vanguardDao : VanguardDao) : ILocalDataSource =
+        LocalDataSource(vanguardDao)
+
 }

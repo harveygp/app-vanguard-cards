@@ -4,11 +4,14 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.submission.R
 import com.example.submission.core.domain.model.Vanguard
 import com.example.submission.databinding.ActivityDetailVanguardBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailVanguardActivity : AppCompatActivity() {
@@ -45,7 +48,9 @@ class DetailVanguardActivity : AppCompatActivity() {
             setStatusFavorite(statusFavorite)
             binding.fab.setOnClickListener {
                 statusFavorite = !statusFavorite
-                detailVanguardViewModel.setFavoriteVanguard(detailVanguard, statusFavorite)
+                lifecycleScope.launch(Dispatchers.Main) {
+                    detailVanguardViewModel.setFavoriteVanguard(detailVanguard, statusFavorite)
+                }
                 setStatusFavorite(statusFavorite)
             }
         }

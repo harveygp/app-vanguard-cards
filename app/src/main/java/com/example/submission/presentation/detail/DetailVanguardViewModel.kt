@@ -1,14 +1,17 @@
 package com.example.submission.presentation.detail
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.submission.core.domain.model.Vanguard
 import com.example.submission.core.domain.usecase.VanguardUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailVanguardViewModel @Inject constructor(private val vanguardUseCase: VanguardUseCase) : ViewModel() {
-    fun setFavoriteVanguard(vanguard: Vanguard, newStatus:Boolean) =
-        vanguardUseCase.updateFavoriteVanguard(vanguard, newStatus)
+    suspend fun setFavoriteVanguard(vanguard: Vanguard, newStatus:Boolean) =
+        viewModelScope.launch(Dispatchers.IO) { vanguardUseCase.updateFavoriteVanguard(vanguard, newStatus) }
 }
 

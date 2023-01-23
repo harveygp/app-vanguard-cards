@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-@Singleton
-class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
+
+class RemoteDataSource @Inject constructor(private val apiService: ApiService) : IRemoteDataSource{
     //get data from API Remote
-    suspend fun getAllVanguards() : Flow<ApiResponse<List<VanguardResponse>>> = flow {
+    override suspend fun getAllVanguards() : Flow<ApiResponse<List<VanguardResponse>>> = flow {
         try {
             val response = apiService.getAllVanguards()
             val dataArray = response.data

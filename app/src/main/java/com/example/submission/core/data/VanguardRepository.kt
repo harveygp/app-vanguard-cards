@@ -1,24 +1,19 @@
 package com.example.submission.core.data
 
-import com.example.submission.core.data.source.local.LocalDataSource
-import com.example.submission.core.data.source.remote.RemoteDataSource
+import com.example.submission.core.data.source.local.ILocalDataSource
+import com.example.submission.core.data.source.remote.IRemoteDataSource
 import com.example.submission.core.data.source.remote.network.ApiResponse
 import com.example.submission.core.data.source.remote.response.VanguardResponse
 import com.example.submission.core.domain.model.Vanguard
-import com.example.submission.core.domain.repository.IVanguardRepository
-import com.example.submission.utils.AppExecutors
-import com.example.submission.utils.DataMapper
+import com.example.submission.core.data.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class VanguardRepository @Inject constructor(
-    private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource,
-    private val appExecutors: AppExecutors
-) : IVanguardRepository{
+    private val remoteDataSource: IRemoteDataSource,
+    private val localDataSource: ILocalDataSource
+) : IVanguardRepository {
     override fun getAllVanguards(): Flow<Resource<List<Vanguard>>> =
         object : NetworkBoundResource<List<Vanguard>, List<VanguardResponse>>() {
             override fun loadFromDB(): Flow<List<Vanguard>> {
@@ -46,8 +41,8 @@ class VanguardRepository @Inject constructor(
         }
     }
 
-    override fun updateFavoriteVanguard(vanguard: Vanguard, state: Boolean) {
+    override suspend fun updateFavoriteVanguard(vanguard: Vanguard, state: Boolean) {
         val vanguardEntity = DataMapper.mapDomainToEntity(vanguard)
-        appExecutors.diskIO().execute { localDataSource.updateFavoriteVanguard(vanguardEntity, state) }
+        localDataSource.updateFavoriteVanguard(vanguardEntity, state)
     }
 }
