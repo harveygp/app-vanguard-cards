@@ -1,11 +1,13 @@
 package com.example.submission.presentation.detail
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.example.submission.MainActivity
 import com.example.submission.R
 import com.example.submission.databinding.ActivityDetailVanguardBinding
 import com.example.vanguard.core.domain.model.Vanguard
@@ -62,5 +64,12 @@ class DetailVanguardActivity : AppCompatActivity() {
         } else {
             binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intentToHome = Intent(this@DetailVanguardActivity, MainActivity::class.java)
+        intentToHome.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intentToHome)
     }
 }

@@ -22,14 +22,13 @@ class VanguardAdapter(private val listVanguards : List<Vanguard>) : ListAdapter<
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (_, name, grade, nation, effect, image, _) = listVanguards[position]
+        val (_, name, grade, nation, _, image, _) = listVanguards[position]
         Glide.with(holder.itemView.context)
             .load(image)
             .into(holder.binding.ivItemImage)
         holder.binding.tvItemName.text = name
         holder.binding.tvItemGrade.text = grade.toString()
         holder.binding.tvItemNation.text = nation
-        holder.binding.tvItemEffect.text = effect
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listVanguards[holder.adapterPosition])
         }
