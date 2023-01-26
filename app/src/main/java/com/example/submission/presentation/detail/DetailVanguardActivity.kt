@@ -1,7 +1,9 @@
 package com.example.submission.presentation.detail
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -31,8 +33,21 @@ class DetailVanguardActivity : AppCompatActivity() {
         binding = ActivityDetailVanguardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val detailVanguard = intent.getParcelableExtra<Vanguard>(EXTRA_DATA)
+        val detailVanguard = if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra(EXTRA_DATA, Vanguard::class.java)
+        } else {
+            intent.getParcelableExtra<Vanguard>(EXTRA_DATA)
+        }
         showDetailVanguard(detailVanguard)
+
+        onBackPressedDispatcher.addCallback(this /* lifecycle owner */, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intentToHome = Intent(this@DetailVanguardActivity, MainActivity::class.java)
+                intentToHome.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intentToHome)
+                finish()
+            }
+        })
     }
 
     private fun showDetailVanguard(detailVanguard: Vanguard?) {
@@ -64,12 +79,5 @@ class DetailVanguardActivity : AppCompatActivity() {
         } else {
             binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val intentToHome = Intent(this@DetailVanguardActivity, MainActivity::class.java)
-        intentToHome.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intentToHome)
     }
 }
