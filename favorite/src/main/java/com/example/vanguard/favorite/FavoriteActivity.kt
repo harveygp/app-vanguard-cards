@@ -15,7 +15,6 @@ import com.example.vanguard.favorite.databinding.ActivityFavoriteBinding
 class FavoriteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFavoriteBinding
-    private val favoriteViewModel by viewModels<FavoriteViewModel>()
     private lateinit var recycleUser: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
