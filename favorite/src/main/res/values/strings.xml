@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="no_favorite">oops... u didnt like any cards yet</string>
+    <string name="no_favorite">oops you didn\'t like any cards yet</string>
 </resources>
