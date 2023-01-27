@@ -28,7 +28,7 @@ object DatabaseModule {
         context,
         VanguardDatabase::class.java, "Vanguard.db"
     ).fallbackToDestructiveMigration()
-        .openHelperFactory(factory)
+        .openHelperFactory(SupportFactory(SQLiteDatabase.getBytes("vanguard".toCharArray())))
         .build()
 
     @Provides

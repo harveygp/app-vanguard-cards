@@ -1,5 +1,6 @@
 package com.example.vanguard.core.data.source.remote.di
 
+import androidx.viewbinding.BuildConfig
 import com.example.vanguard.core.data.source.remote.IRemoteDataSource
 import com.example.vanguard.core.data.source.remote.RemoteDataSource
 import com.example.vanguard.core.data.source.remote.network.ApiService
@@ -7,6 +8,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -20,11 +22,27 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideSSL(): CertificatePinner = CertificatePinner
+        .Builder()
+        .add("card-fight-vanguard-api.ue.r.appspot.com", "sha256/JhpWhrqZ/2TQ4KbDA94sV2D9C2EkkCTSIPfFkkaHcd0=")
+        .add("card-fight-vanguard-api.ue.r.appspot.com", "sha256/zCTnfLwLKbS9S2sbp+uFz4KZOocFvXxkV06Ce9O5M2w=")
+        .add("card-fight-vanguard-api.ue.r.appspot.com", "sha256/hxqRlPTu1bMS/0DITB1SSu0vd4u/8l8TjPgfaAp63Gc=")
+        .build()
+
+    @Provides
+    @Singleton
+    fun provideLogger() =
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS)
+        } else HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(logger: HttpLoggingInterceptor, shaKey: CertificatePinner): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120, TimeUnit.SECONDS)
+            .addInterceptor(logger)
+            .certificatePinner(shaKey)
             .build()
     }
 
